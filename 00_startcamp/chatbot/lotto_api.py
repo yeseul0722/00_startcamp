@@ -31,12 +31,25 @@ numbers = list(range(1,7))
     # 3개면 5등
     # 2개 이하면 꽝을 출력한다.
 
+
+
+
 lotto_num = list(range(1, 46))
 
 lotto_1049 = requests.get(f'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=1049').json()
 origin = []
 for no in numbers:
     origin.append(lotto_1049[f'drwtNo{no}'])
+
+
+count_list = {
+    "!!1등!!" : 0,
+    "2등" : 0,
+    "3등" : 0,
+    "4등" : 0,
+    "5등" : 0,
+    "꽝" : 0
+}
 
 for i in range(1000):
     lotto = random.sample(lotto_num, 6)
@@ -45,16 +58,16 @@ for i in range(1000):
         if lot in origin:
             cnt += 1
     if cnt == 6:
-        print("!!1등!!")
+        count_list["!!1등!!"] = count_list["!!1등!!"] + 1
     elif cnt == 5:
-        print("!2등!") 
+        count_list["3등"] = count_list["3등"] + 1
     elif cnt == 4:
-        print("3등") 
+        count_list["4등"] = count_list["4등"] + 1
     elif cnt == 3:
-        print("4등") 
+        count_list["5등"] = count_list["5등"] + 1 
     else:
-        print("꽝") 
+        count_list["꽝"] = count_list["꽝"] + 1
                
-
+print(count_list)
     
 
